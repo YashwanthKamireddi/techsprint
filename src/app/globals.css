@@ -28,7 +28,7 @@
 /* Dark mode preference */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #202124;
+    --background: #060606;
     --foreground: #ffffff;
     --io-border: #ffffff/70;
   }

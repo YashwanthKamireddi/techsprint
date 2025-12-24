@@ -46,13 +46,13 @@ export default function ProfileModal({ user, isOpen, onClose, onComplete }: Prof
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-            <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 animate-in fade-in zoom-in duration-200">
-                <h2 className="text-2xl font-bold mb-2 text-gray-900">Complete Your Profile</h2>
-                <p className="text-gray-600 mb-6">Tell us a bit about yourself to get started.</p>
+            <div className="bg-white dark:bg-black rounded-2xl shadow-xl max-w-md w-full p-6 animate-in fade-in zoom-in duration-200">
+                <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-300">Complete Your Profile</h2>
+                <p className="text-gray-600 dark:text-gray-300 mb-6">Tell us a bit about yourself to get started.</p>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">College Name</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">College Name</label>
                         <input
                             type="text"
                             required
@@ -64,7 +64,7 @@ export default function ProfileModal({ user, isOpen, onClose, onComplete }: Prof
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Year of Study</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Year of Study</label>
                         <select
                             required
                             value={formData.year}

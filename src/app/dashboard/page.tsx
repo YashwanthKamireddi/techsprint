@@ -116,7 +116,7 @@ export default function Dashboard() {
                             </Link>
                         </div>
                         <div className="flex items-center">
-                            <button onClick={handleSignOut} className="text-gray-600 font-medium hover:text-[var(--google-red)]">
+                            <button onClick={handleSignOut} className="text-gray-600 font-medium hover:text-(--google-red)">
                                 Sign Out
                             </button>
                         </div>

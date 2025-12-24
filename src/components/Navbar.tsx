@@ -60,10 +60,10 @@ export default function Navbar() {
                             </Link>
                         </div>
                         <div className="hidden md:flex items-center space-x-8">
-                            <Link href="#about" className="text-gray-600 hover:text-(--google-blue) font-medium transition-colors">
+                            <Link href="#about" className="text-black/60 dark:text-white/70 hover:text-(--google-blue) font-medium transition-colors">
                                 About
                             </Link>
-                            <Link href="/timeline" className="text-gray-600 hover:text-(--google-blue) font-medium transition-colors">
+                            <Link href="/timeline" className="text-black/60 dark:text-white/70 hover:text-(--google-blue) font-medium transition-colors">
                                 Timeline
                             </Link>
 

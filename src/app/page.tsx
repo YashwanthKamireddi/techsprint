@@ -28,13 +28,13 @@ export default function Home() {
             </div>
             <Timeline />
 
-            <footer className="bg-(--io-dark) text-white py-12">
+            <footer className="bg-black/5 dark:bg-[#121212]/50 text-white py-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <p className="text-gray-400">© 2025 Google TechSprint. All rights reserved.</p>
+                    <p className="text-black/60 dark:text-white/60">© 2025 Google TechSprint. All rights reserved.</p>
                     <div className="mt-4 flex justify-center space-x-6">
-                        <a href="#" className="text-gray-400 hover:text-white">Privacy Policy</a>
-                        <a href="#" className="text-gray-400 hover:text-white">Terms of Service</a>
-                        <a href="#" className="text-gray-400 hover:text-white">Code of Conduct</a>
+                        <a href="#" className="text-black/40 dark:text-white/40 hover:text-black hover:dark:text-white">Privacy Policy</a>
+                        <a href="#" className="text-black/40 dark:text-white/40 hover:text-black hover:dark:text-white">Terms of Service</a>
+                        <a href="#" className="text-black/40 dark:text-white/40 hover:text-black hover:dark:text-white">Code of Conduct</a>
                     </div>
                 </div>
             </footer>
