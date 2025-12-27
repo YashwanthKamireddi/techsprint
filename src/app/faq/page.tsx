@@ -55,7 +55,7 @@ export default function Page() {
             </p>
             <br />
             <h3>Language</h3>
-            <p>All presentations at WTM IWD 2025 Vizag will be in English.</p>
+            <p>All presentations at TechSprint 2026 Vizag will be in English.</p>
             <br />
           </div>
         </div>
@@ -95,29 +95,29 @@ export default function Page() {
               </li>
               <li>
                 By registering and accepting any discounts, gifts, or items of
-                value related to WTM IWD 2025 Vizag, you certify that you are able
+                value related to TechSprint 2026 Vizag, you certify that you are able
                 to do so in compliance with applicable laws and the internal rules
                 of your organization.
               </li>
               <li>
                 Tickets may not be sold, bartered, or auctioned in any way, and
-                doing so may result in WTM Vizag rendering the ticket null and
-                void without any responsibility to WTM Vizag.
+                doing so may result in Techsprint Vizag rendering the ticket null and
+                void without any responsibility to Techsprint Vizag.
               </li>
               <li>
-                Attendees aren’t permitted to bring guests to WTM IWD 2025 Vizag.
+                Attendees aren’t permitted to bring guests to TechSprint 2026 Vizag.
               </li>
               <li>
                 If you have someone traveling with you, they’ll need to register
                 themselves and purchase an attendee ticket.
               </li>
               <li>
-                Photographs and/or video taken at WTM IWD 2025 Vizag by WTM Vizag,
-                or others on behalf of WTM Vizag, may include your image or
+                Photographs and/or video taken at TechSprint 2026 Vizag by Techsprint Vizag,
+                or others on behalf of Techsprint Vizag, may include your image or
                 likeness.
               </li>
               <li>
-                You agree that WTM Vizag may use such photographs and/or video for
+                You agree that Techsprint Vizag may use such photographs and/or video for
                 any purpose without compensation to you.
               </li>
               <li>
@@ -125,26 +125,25 @@ export default function Page() {
                 and accurate to the best of your knowledge.
               </li>
               <li>
-                All registered attendees agree to allow WTM Vizag to contact them
+                All registered attendees agree to allow Techsprint Vizag to contact them
                 regarding their registration and attendance at the event.
               </li>
               <li>
-                By registering for a ticket, you agree to allow WTM Vizag to
+                By registering for a ticket, you agree to allow Techsprint Vizag to
                 communicate with you via email with information regarding the
                 event.
               </li>
               <li>
                 You agree to be solely responsible for your own safety,
-                belongings, and well-being while participating in WTM IWD 2025
+                belongings, and well-being while participating in TechSprint 2026
                 Vizag.
               </li>
               <li>
-                WTM Vizag won't be liable for your participation in WTM IWD 2025
+                Techsprint Vizag won't be liable for your participation in TechSprint 2026
                 Vizag.
               </li>
               <li>
-                No solicitation or selling of items or services is allowed at WTM
-                IWD 2025 Vizag.
+                No solicitation or selling of items or services is allowed at TechSprint 2026 Vizag.
               </li>
               <li>
                 Any attendee conducting these activities may be removed from the
@@ -164,7 +163,7 @@ export default function Page() {
           <div className="mt-6 md:mt-[unset]">
             <h3>Event Attire</h3>
             <p>
-              WTM IWD 2025 Vizag is a developer event, so please be comfortable and
+              TechSprint 2026 Vizag is a developer event, so please be comfortable and
               casual. There is no enforced dress code.
             </p>
             <h3>Onsite food & beverages</h3>
@@ -176,8 +175,7 @@ export default function Page() {
             <p>Smoking is strictly prohibited in the venue.</p>
             <h3>No Soliciting</h3>
             <p>
-              No solicitation or selling of items or services is allowed at WTM
-              IWD 2025 Vizag. Any attendee conducting these activities may be
+              No solicitation or selling of items or services is allowed at TechSprint 2026 Vizag. Any attendee conducting these activities may be
               removed from the conference.
             </p>
             <h3>Community Guidelines</h3>

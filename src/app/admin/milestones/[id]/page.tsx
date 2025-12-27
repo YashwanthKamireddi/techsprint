@@ -11,7 +11,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { db } from "@/app/firebase";
+import { db } from "@/lib/firebase";
 import { useEffect, useState } from "react";
 import { VisibilityOutlined } from "@mui/icons-material";
 import { useAuthContext } from "@/context/AuthContext";

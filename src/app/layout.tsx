@@ -9,8 +9,10 @@ import { AuthContextProvider, useAuthContext } from "@/context/AuthContext";
 import { GoogleAuthProvider, signInWithPopup, User } from "firebase/auth";
 import Script from "next/script";
 import Navbar from "@/components/Navbar";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
+import GetUserProgress from "@/utils/getUserProgress";
+import Progress from "@/utils/progress";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -100,6 +102,16 @@ export function TopNavigationBar(props: any) {
   const router = useRouter();
   const user = useAuthContext();
   const pathName = usePathname();
+  const [userProgress, setUserProgress] = useState<Progress | null>(null);
+
+  // Fetch user progress from Firestore instead of localStorage
+  useEffect(() => {
+    if (user?.uid) {
+      GetUserProgress(user.uid).then(setUserProgress);
+    } else {
+      setUserProgress(null);
+    }
+  }, [user]);
 
   const handleSignIn = async () => {
     const provider = new GoogleAuthProvider();
@@ -150,32 +162,22 @@ export function TopNavigationBar(props: any) {
           </div>
         </Link>
       )}
-      {/* {user !== null &&
-        !pathName.includes("/register") &&
-        localStorage.getItem("hasRegistered") !== "true" && (
-          <Link href="/register" className="flex">
-            <button className="my-3 md:mx-3 mr-0 ml-3 py-[10px] bg-[#1a73e8] text-white font-medium text-sm px-5 rounded-lg">
-              Register
-            </button>
-          </Link>
-        )} */}
+      {/* Show "Confirm Participation" button if user paid but not in team yet */}
       {user !== null &&
         !pathName.includes("/register") &&
         !pathName.includes("/confirmation") &&
-        localStorage.getItem("hasRegistered") === "true" &&
-        localStorage.getItem("isShortlisted") === "true" &&
-        localStorage.getItem("isConfirmedAttendee") !== "true" && (
+        userProgress === Progress.notYetTeamMember && (
           <Link href="/confirmation" className="flex">
             <button className="my-3 md:mx-3 mr-0 ml-3 py-[10px] bg-[#1a73e8] text-white font-medium text-sm px-5 rounded-lg">
               Confirm Participation
             </button>
           </Link>
         )}
+      {/* Show "My Profile" if user is fully registered with team */}
       {user !== null &&
         !pathName.includes("/register") &&
-        localStorage.getItem("hasRegistered") === "true" &&
-        localStorage.getItem("isShortlisted") === "true" &&
-        localStorage.getItem("isConfirmedAttendee") === "true" && (
+        (userProgress === Progress.completeRegistration || 
+         userProgress === Progress.completeRegistrationTeamLead) && (
           <Link href="/profile" className="flex">
             <button className="my-3 md:mx-3 mr-0 ml-3 py-[10px] bg-[#1a73e8] text-white font-medium text-sm px-5 rounded-lg">
               My Profile

@@ -30,7 +30,7 @@ const MyForm: React.FC = () => {
   const [isCompleteRegistration, setIsCompleteRegistration] = useState(false);
   useEffect(() => {
     if (user === null) {
-      alert("Please login to register for IWD");
+      alert("Please login to register for Techsprint");
       window.location.href = "/";
       return;
     }
@@ -98,7 +98,13 @@ const MyForm: React.FC = () => {
       ["terms"]: 1,
     }));
 
-    await addData("registrations", user?.uid, {
+    if (!user?.uid) {
+      alert("User not authenticated");
+      setLoadingState(false);
+      return;
+    }
+
+    await addData("registrations", user.uid, {
       ...formState,
       ["displayPicture"]: user?.photoURL ?? "",
       ["isTeamMember"]: -1,
@@ -123,35 +129,35 @@ const MyForm: React.FC = () => {
   }, [user]);
 
   return (
-    <div className="flex flex-col justify-center items-center md:py-[60px] md:px-[unset]">
-      <div className="flex flex-col justify-center items-center md:rounded-xl md:border-[1.5px] border-gray-500 md:w-4/5">
-        <div className="w-full md:rounded-t-xl bg-gray-200 flex flex-col md:flex-row p-[20px] pt-[32px] pb-0 border-gray-500 border-b-[1.5px]">
+    <div className="flex flex-col justify-center items-center md:py-[60px] md:px-[unset] bg-white dark:bg-[#0a0a0a] min-h-screen">
+      <div className="flex flex-col justify-center items-center md:rounded-xl md:border-[1.5px] border-gray-500 dark:border-gray-700 md:w-4/5 bg-white dark:bg-[#141414]">
+        <div className="w-full md:rounded-t-xl bg-gray-200 dark:bg-gray-800 flex flex-col md:flex-row p-[20px] pt-[32px] pb-0 border-gray-500 dark:border-gray-700 border-b-[1.5px]">
           <div className="md:grow md:pt-[30px] md:pl-[40px] pt-[20px] pb-[40px] md:pb-[unset]">
-            <h1 className="text-3xl font-medium">Register for TechSprint 2026</h1>
+            <h1 className="text-3xl font-medium text-gray-900 dark:text-white">Register for TechSprint 2026</h1>
 
-            <p className="opacity-60 mt-3 text-lg">24-25th March 2026</p>
+            <p className="opacity-60 mt-3 text-lg text-gray-700 dark:text-gray-300">24-25th March 2026</p>
 
-            <p className="opacity-60">Vignan University, Visakhapatnam</p>
+            <p className="opacity-60 text-gray-700 dark:text-gray-300">Vignan University, Visakhapatnam</p>
           </div>
           <img
             src="gdsc_sc.webp"
             className="md:h-56 -scale-x-100 translate-y-1 md:translate-y-2"
-          />
+          /> 
         </div>
-        <div className="md:w-4/5 md:mr-auto md:mt-10 p-[20px] pb-0 md:p-[unset] md:ml-auto">
-          <h3 className="text-xl font-medium">Create a developer profile</h3>
-          <p className="mt-2 max-w-[480px] md:text-base text-sm">
+        <div className="md:w-4/5 md:mr-auto md:mt-10 p-[20px] pb-0 md:p-[unset] md:ml-auto bg-white dark:bg-[#141414]">
+          <h3 className="text-xl font-medium text-gray-900 dark:text-white">Create a developer profile</h3>
+          <p className="mt-2 max-w-[480px] md:text-base text-sm text-gray-700 dark:text-gray-300">
             Create your developer profile to apply for a ticket to Google TechSprint 2026
             Visakhapatnam so that you don't miss out on the fun and learning.
             You can also use your profile to earn badges during the conference.
           </p>
-          <p className="font-medium">
+          <p className="font-medium text-gray-900 dark:text-white">
             Note: This is a paid event, an offline <b>ticket costs ₹250</b>.
           </p>
         </div>
         <form
           onSubmit={handleSubmit}
-          className="px-[20px] md:px-[unset] md:w-4/5"
+          className="px-[20px] md:px-[unset] md:w-4/5 bg-white dark:bg-[#141414]"
         >
           <div className="mb-4 py-8 rounded-3xl w-full  flex flex-col space-y-4 md:space-y-8">
             <div className="flex flex-col md:flex-row md:space-x-8 gap-y-4 md:gap-y-[unset]">
@@ -211,7 +217,7 @@ const MyForm: React.FC = () => {
                   onChange={handleChange}
                   className="register-input w-full"
                 />
-                <p className="mt-2 md:mt-4 max-w-[440px] text-[12px]">
+                <p className="mt-2 md:mt-4 max-w-[440px] text-[12px] text-gray-700 dark:text-gray-400">
                   Share us a link where we can get to know more about you. It
                   can be your website, social media, or literally anything you
                   want us to know
@@ -267,7 +273,7 @@ const MyForm: React.FC = () => {
             </div>
             {formState.gender === "She/Her" && (
               <div>
-                <label className="mr-3 text-[20px]">Accommodation</label>
+                <label className="mr-3 text-[20px] text-gray-900 dark:text-white">Accommodation</label>
                 <br />
                 <input
                   name="acco"
@@ -282,7 +288,7 @@ const MyForm: React.FC = () => {
                     }));
                   }}
                 />
-                <label htmlFor="accoYes" className="mr-8 ml-1">
+                <label htmlFor="accoYes" className="mr-8 ml-1 text-gray-900 dark:text-gray-300">
                   Yes
                 </label>
                 <input
@@ -298,10 +304,10 @@ const MyForm: React.FC = () => {
                     }));
                   }}
                 />
-                <label htmlFor="accoNo" className="mr-2 ml-1">
+                <label htmlFor="accoNo" className="mr-2 ml-1 text-gray-900 dark:text-gray-300">
                   No
                 </label>
-                <p className="mt-2 md:mt-4 text-[16px]">
+                <p className="mt-2 md:mt-4 text-[16px] text-gray-700 dark:text-gray-300">
                   Note: <br />
                   <b>Eligibility</b>: Accommodation is exclusively available for
                   female attendees traveling from outside the local area. <br />
@@ -320,18 +326,19 @@ const MyForm: React.FC = () => {
           <div>
             <div className="flex space-x-3">
               <input type="checkbox" name="terms" required />
-              <p>
+              <p className="text-gray-900 dark:text-gray-300">
                 I agree to the{" "}
                 <button
                   onClick={() => {
                     const tcWindow = window
                       .open(
                         "/faq#terms-conditions",
-                        "Terms and Conditions | IWD 2024 Visakhapatnam",
+                        "Terms and Conditions | Techsprint 2026 Visakhapatnam",
                         "popup, location,status,scrollbars,resizable,width=600, height=600"
                       )
                       ?.focus();
                   }}
+                  className="text-gray-900 dark:text-white"
                 >
                   <b>terms and conditions</b>
                 </button>
@@ -340,7 +347,7 @@ const MyForm: React.FC = () => {
             </div>
             <div className="flex space-x-3">
               <input type="checkbox" name="coc" required />
-              <p>
+              <p className="text-gray-900 dark:text-gray-300">
                 I agree to abide by the code of conduct{" "}
                 <a
                   href="/coc"
@@ -356,7 +363,7 @@ const MyForm: React.FC = () => {
           <div className="w-full flex justify-center items-center">
             <button
               type="submit"
-              className="py-2 px-6 text-blue-500 rounded border-neutral-300 border text-sm mb-16 mt-8"
+              className="py-2 px-6 text-blue-500 dark:text-blue-400 rounded border-neutral-300 dark:border-gray-600 border text-sm mb-16 mt-8 hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors"
             >
               Next{" "}
               <span>
@@ -371,18 +378,18 @@ const MyForm: React.FC = () => {
           </div>
         </form>
         {loading && (
-          <div className="absolute top-0 w-full h-full flex items-center justify-center z-10 bg-opacity-50 bg-black md:ml-[80px] text-center">
-            <div className="px-[40px] md:px-[80px] pb-[40px] bg-white rounded-2xl shadow-2xl mx-8 md:mx-[unset]">
+          <div className="absolute top-0 w-full h-full flex items-center justify-center z-10 bg-opacity-50 bg-black dark:bg-opacity-70 md:ml-[80px] text-center">
+            <div className="px-[40px] md:px-[80px] pb-[40px] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl mx-8 md:mx-[unset]">
               {!popUp && <Loader></Loader>}
               {!registered && !popUp && (
-                <p className="font-medium">
+                <p className="font-medium text-gray-900 dark:text-white">
                   Please wait while we process your registration
                 </p>
               )}
               {registered && !isCompleteRegistration && (
                 <>
-                  <h2 className="text-2xl font-medium">Application Recieved</h2>
-                  <p className="text-sm mt-4 mb-8 max-w-[420px]">
+                  <h2 className="text-2xl font-medium text-gray-900 dark:text-white">Application Recieved</h2>
+                  <p className="text-sm mt-4 mb-8 max-w-[420px] text-gray-700 dark:text-gray-300">
                     You'll be notified of the status of your hackathon team
                     soon. If you're not into a team before the hackathon, we'll
                     try to get you a team at the venue. Otherwise, request your
@@ -396,7 +403,7 @@ const MyForm: React.FC = () => {
                       setRegistrationStatus(false);
                       window.location.href = "/";
                     }}
-                    className="border-[1.5px] px-8 py-2 rounded-full border-gray-500"
+                    className="border-[1.5px] px-8 py-2 rounded-full border-gray-500 dark:border-gray-600 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                   >
                     Done
                   </button>
@@ -404,10 +411,10 @@ const MyForm: React.FC = () => {
               )}
               {registered && isCompleteRegistration && (
                 <>
-                  <EmojiEventsOutlined fontSize="large" className="mt-8" />
-                  <h2 className="text-2xl font-medium mt-4">You're in.</h2>
-                  <p className="text-sm mt-4 mb-8 max-w-[420px]">
-                    Excited to host you for IWD 2025.
+                  <EmojiEventsOutlined fontSize="large" className="mt-8 text-gray-900 dark:text-white" />
+                  <h2 className="text-2xl font-medium mt-4 text-gray-900 dark:text-white">You're in.</h2>
+                  <p className="text-sm mt-4 mb-8 max-w-[420px] text-gray-700 dark:text-gray-300">
+                    Excited to host you for TechSprint 2026.
                     <br />
                     Earn badges and have fun before the event.
                     <br />
@@ -420,7 +427,7 @@ const MyForm: React.FC = () => {
                       setRegistrationStatus(false);
                       window.location.href = "/";
                     }}
-                    className="border-[1.5px] px-8 py-2 rounded-full border-gray-500"
+                    className="border-[1.5px] px-8 py-2 rounded-full border-gray-500 dark:border-gray-600 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                   >
                     Done
                   </button>
@@ -428,20 +435,20 @@ const MyForm: React.FC = () => {
               )}
               {popUp && (
                 <>
-                  <h2 className="text-2xl font-medium mt-12">
+                  <h2 className="text-2xl font-medium mt-12 dark:text-white">
                     {/* Rules & Regulations */}
                     Confirm your payment
                   </h2>
-                  <p className="mt-4 max-w-[480px] mx-auto">
+                  <p className="mt-4 max-w-[480px] mx-auto dark:text-gray-300">
                     We're sold out on tickets. But, its not the end of the
                     world. We're amazed by your enthuasism, and we added more
-                    tickets. Here's what your Rs. 350 ticket will unlock for
+                    tickets. Here's what your Rs. 200 ticket will unlock for
                     you:
                   </p>
-                  <ul className="text-start list-disc list-inside my-4">
+                  <ul className="text-start list-disc list-inside my-4 dark:text-gray-300">
                     <li>Access to the 24 hour hackathon</li>
-                    <li>Chance to win upto 25K cash prize pool</li>
-                    <li>4 rounds of yummy itenary</li>
+                    <li>Chance to win upto 9K cash prize pool</li>
+                    <li>2 rounds of yummy itenary</li>
                     <li>Swags and goodies</li>
                     <li>Networking with industry experts</li>
                     <li>Certificate of participation</li>
@@ -467,10 +474,10 @@ const MyForm: React.FC = () => {
                   <h3 className="text-2xl font-medium text-start">
                     Payment & Refund Policy
                   </h3>
-                  <p className="text-sm mt-4 mb-8 max-w-[60ch] text-start">
+                  <p className="text-sm mt-4 mb-8 max-w-[60ch] text-start dark:text-gray-300">
                     <b>No Refund Policy</b>: Please be aware that all
                     registration fees are{" "}
-                    <span className="!text-red-600 font-bold">
+                    <span className="!text-red-600 dark:!text-red-400 font-bold">
                       non-refundable
                     </span>
                     .<br />
@@ -496,7 +503,6 @@ const MyForm: React.FC = () => {
                   <br />
                   <br /> */}
                   <button
-                    disabled
                     onClick={async () => {
                       const createOrderId = async () => {
                         try {
@@ -533,10 +539,10 @@ const MyForm: React.FC = () => {
                         console.log(createOrderIdValue);
                         const options = {
                           key: "rzp_live_4GKxrZC526axav",
-                          amount: 25000,
+                          amount: 100,
                           currency: "INR",
-                          name: "Women TechMakers Vizag",
-                          description: "Your ticket reciept for WTM IWD 25",
+                          name: "TechSprint 2026 Visakhapatnam",
+                          description: "Your ticket reciept for TechSprint 2026 Visakhapatnam",
                           order_id: createOrderIdValue,
                           handler: function (response: any) {
                             // alert(response.razorpay_payment_id);
@@ -581,9 +587,9 @@ const MyForm: React.FC = () => {
                         console.log(error);
                       }
                     }}
-                    className="border-[1.5px] px-8 py-2 rounded-full border-gray-500 bg-blue-500 text-white disabled:bg-gray-100 disabled:text-gray-300 disabled:border-0"
+                    className="border-[1.5px] px-8 py-2 rounded-full border-gray-500 dark:border-gray-700 bg-blue-500 dark:bg-blue-600 text-white hover:bg-blue-600 dark:hover:bg-blue-700 transition-colors disabled:bg-gray-100 dark:disabled:bg-gray-800 disabled:text-gray-300 dark:disabled:text-gray-600 disabled:border-0"
                   >
-                    Sold Out
+                    Pay ₹250
                   </button>
                 </>
               )}

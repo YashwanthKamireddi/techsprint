@@ -1,6 +1,6 @@
 export default function Gallery() {
   return (
-    <div className="photos_grid saturate-0 opacity-30">
+    <div className="photos_grid">
       <img
         crossOrigin="anonymous"
         className="grid_item object-top"

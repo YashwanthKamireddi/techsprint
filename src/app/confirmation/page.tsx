@@ -20,7 +20,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { db } from "@/app/firebase";
+import { db } from "@/lib/firebase";
 import { BadgeOutlined, EmojiEventsOutlined } from "@mui/icons-material";
 
 export default function Confirmation() {
@@ -53,7 +53,7 @@ export default function Confirmation() {
 
   useEffect(() => {
     if (user === null) {
-      alert("Please login to register for IWD");
+      alert("Please login to register for TechSprint 2026");
       window.location.href = "/";
       return;
     }
@@ -156,8 +156,8 @@ export default function Confirmation() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center py-[20px] md:py-[60px] md:px-[unset]">
-      <div className="flex flex-col justify-center items-center md:rounded-xl md:border-[1.5px] border-gray-500 md:w-4/5">
+    <div className="flex flex-col justify-center items-center py-[20px] md:py-[60px] md:px-[unset] bg-white dark:bg-[#0a0a0a] min-h-screen">
+      <div className="flex flex-col justify-center items-center md:rounded-xl md:border-[1.5px] border-gray-500 dark:border-gray-700 md:w-4/5 dark:bg-[#141414]">
         <div className="w-full md:rounded-t-xl bg-[#FBBC04] flex flex-col md:flex-row p-[20px] pt-[32px] pb-4 border-gray-500 border-b-[1.5px]">
           <div className="md:grow md:pt-[30px] md:pl-[40px] pt-[20px] pb-[40px] md:pb-[unset]">
             <h1 className="text-2xl md:text-6xl font-bold">Hurray!</h1>
@@ -174,8 +174,8 @@ export default function Confirmation() {
           />
         </div>
         <div className="md:w-4/5 md:mr-auto md:mt-10 p-[20px] pb-0 md:p-[unset] md:ml-auto">
-          <h3 className="text-xl font-medium">Complete your registration</h3>
-          <p className="mt-2 max-w-[480px] md:text-base text-sm">
+          <h3 className="text-xl font-medium dark:text-white">Complete your registration</h3>
+          <p className="mt-2 max-w-[480px] md:text-base text-sm dark:text-gray-300">
             We need some more details from your provide the best experience and
             make sure everything is in place for you.
           </p>
@@ -212,8 +212,8 @@ export default function Confirmation() {
               />
             </div>
             <div>
-              <p className="font-medium mt-1 text-lg">T-shirt size</p>
-              <div className="space-x-4 mt-2">
+              <p className="font-medium mt-1 text-lg dark:text-white">T-shirt size</p>
+              <div className="space-x-4 mt-2 dark:text-gray-300">
                 <div className="w-max inline-flex gap-x-3">
                   <input
                     type="radio"
@@ -273,12 +273,12 @@ export default function Confirmation() {
               </div>
             </div>
             <div>
-              <p className="font-bold text-xl">Hackathon Related Information</p>
-              <p className="font-medium mt-1 text-lg">Are you the team lead?</p>
-              <p className="text-sm">
+              <p className="font-bold text-xl dark:text-white">Hackathon Related Information</p>
+              <p className="font-medium mt-1 text-lg dark:text-white">Are you the team lead?</p>
+              <p className="text-sm dark:text-gray-300">
                 If you don't have a team, we can help you find one at the venue.
               </p>
-              <div className="flex items-center space-x-2 mt-2">
+              <div className="flex items-center space-x-2 mt-2 dark:text-gray-300">
                 <input
                   type="radio"
                   name="isLead"
@@ -345,17 +345,17 @@ export default function Confirmation() {
               {isTeamLead && team.length > 0 && (
                 <div className="flex flex-col md:flex-row gap-x-4">
                   {team.map((attendee, index) => (
-                    <div className="inline-flex flex-col p-[20px] bg-amber-200 w-max mt-3 rounded-xl">
-                      <p className="text-2xl font-medium">{attendee.label}</p>
-                      <p className="text-2xl font-medium">
+                    <div className="inline-flex flex-col p-[20px] bg-amber-200 dark:bg-amber-900 w-max mt-3 rounded-xl">
+                      <p className="text-2xl font-medium dark:text-white">{attendee.label}</p>
+                      <p className="text-2xl font-medium dark:text-white">
                         {attendee.lastName}
                       </p>
-                      <p className="mt-2 text-sm border-[1px] border-black px-3 py-1 rounded-full">
+                      <p className="mt-2 text-sm border-[1px] border-black dark:border-gray-600 dark:text-gray-300 px-3 py-1 rounded-full">
                         {attendee.email}
                       </p>
                       {attendee.userId != user?.uid && (
                         <button
-                          className="mt-2 px-6 text-white bg-black h-max py-2 my-auto rounded-full"
+                          className="mt-2 px-6 text-white bg-black dark:bg-gray-700 h-max py-2 my-auto rounded-full"
                           onClick={(e) => {
                             e.preventDefault();
                             setTeam(team.filter((_, i) => i !== index));
@@ -366,6 +366,7 @@ export default function Confirmation() {
                       )}
                     </div>
                   ))}
+
                 </div>
               )}
               {isTeamLead && (
@@ -386,8 +387,8 @@ export default function Confirmation() {
                       ")"
                     }
                     getOptionDisabled={(o) => !o.isPaid || o.isTeamMember == -1}
-                    renderOption={({ ...props }, option: Attendee) => (
-                      <li key={option.email} {...props}>
+                    renderOption={(props, option: Attendee) => (
+                      <li {...props}>
                         <div className="flex gap-4">
                           <img
                             src={option.image}
@@ -433,7 +434,7 @@ export default function Confirmation() {
                     )}
                   />
                   <button
-                    className="px-6 text-white bg-black h-max py-2 my-auto rounded-full"
+                    className="px-6 text-white bg-black dark:bg-gray-700 h-max py-2 my-auto rounded-full"
                     onClick={(e) => {
                       e.preventDefault();
                       if (team.length == 4) {
@@ -467,7 +468,7 @@ export default function Confirmation() {
                 </div>
               )}
               {isTeamLead && (
-                <p className="mt-2">
+                <p className="mt-2 dark:text-gray-300">
                   <b>Note</b>: Team size should be within <b>2-4 only</b>. You
                   can edit your team anytime.
                 </p>
@@ -477,7 +478,7 @@ export default function Confirmation() {
           <div className="w-full flex justify-center items-center">
             <button
               type="submit"
-              className="py-2 px-6 text-blue-500 rounded border-neutral-300 border font-medium mb-16 mt-8"
+              className="py-2 px-6 text-blue-500 dark:text-blue-400 rounded border-neutral-300 dark:border-gray-600 border font-medium mb-16 mt-8 hover:bg-gray-100 dark:hover:bg-gray-800"
             >
               Submit
             </button>
@@ -486,13 +487,13 @@ export default function Confirmation() {
 
         {loading && (
           <div className="absolute top-0 w-full h-full flex items-center justify-center z-10 bg-opacity-50 bg-black md:ml-[80px] text-center">
-            <div className="px-[40px] md:px-[80px] pb-[40px] bg-white rounded-2xl shadow-2xl mx-8 md:mx-[unset]">
+            <div className="px-[40px] md:px-[80px] pb-[40px] bg-white dark:bg-[#141414] rounded-2xl shadow-2xl mx-8 md:mx-[unset]">
               {isCompleteRegistration ? (
                 <>
-                  <EmojiEventsOutlined fontSize="large" className="mt-8" />
-                  <h2 className="text-2xl font-medium mt-4">You're in.</h2>
-                  <p className="text-sm mt-4 mb-8 max-w-[420px]">
-                    Excited to host you for IWD 2025.
+                  <EmojiEventsOutlined fontSize="large" className="mt-8 dark:text-white" />
+                  <h2 className="text-2xl font-medium mt-4 dark:text-white">You're in.</h2>
+                  <p className="text-sm mt-4 mb-8 max-w-[420px] dark:text-gray-300">
+                    Excited to host you for TechSprint 2026.
                     <br />
                     Earn badges and have fun before the event.
                     <br />
@@ -505,7 +506,7 @@ export default function Confirmation() {
                       setIsCompleteRegistration(false);
                       window.location.href = "/";
                     }}
-                    className="border-[1.5px] px-8 py-2 rounded-full border-gray-500"
+                    className="border-[1.5px] px-8 py-2 rounded-full border-gray-500 dark:border-gray-600 dark:text-white dark:hover:bg-gray-800"
                   >
                     Done
                   </button>
@@ -513,7 +514,7 @@ export default function Confirmation() {
               ) : (
                 <>
                   <Loader></Loader>
-                  <p className="font-medium">
+                  <p className="font-medium dark:text-white">
                     Please wait while we process your application.
                   </p>
                 </>

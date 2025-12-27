@@ -1,6 +1,6 @@
 "use client";
 import { getDoc, doc } from "firebase/firestore";
-import { db } from "@/app/firebase";
+import { db } from "@/lib/firebase";
 import { useAuthContext } from "@/context/AuthContext";
 import QRCode from "react-qr-code";
 import Link from "next/link";

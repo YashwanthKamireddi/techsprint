@@ -27,7 +27,7 @@ export default function Page() {
           // console.log(snapshot.docs);
           const teamDetailsId = snapshot.docs[0].id;
           setTeamDocId(teamDetailsId);
-          const dt = snapshot.docs[0].data()["milestone_one_time"];
+          const dt = snapshot.docs[0].data()["milestone_two_time"];
           if (dt == undefined || dt == null) {
           } else {
             alert(
@@ -47,9 +47,9 @@ export default function Page() {
   return (
     <>
       <div className="p-4 h-[88%] pt-16">
-        <h3 className="text-xl font-bold uppercase opacity-50">Miletone 1</h3>
+        <h3 className="text-xl font-bold uppercase opacity-50">Milestone 2</h3>
         <h2 className="text-4xl font-medium mb-8">
-          Idea Research Document (IRD)
+          Prototype / MVP Submission
         </h2>
         <form
           onSubmit={async (f) => {
@@ -68,11 +68,10 @@ export default function Page() {
             const dUrl = await getDownloadURL(r);
             if (teamDocId != undefined) {
               await updateDoc(doc(db, "teams", teamDocId), {
-                milestone_one_link: dUrl,
-                milestone_one_score_aggregate: -1,
-                score: -1,
-                milestone_one_time: serverTimestamp(),
-                milestone_one_score: [],
+                milestone_two_link: dUrl,
+                milestone_two_score_aggregate: -1,
+                milestone_two_time: serverTimestamp(),
+                milestone_two_score: [],
               });
               setLoader(false);
               alert("Submitted successfully.");

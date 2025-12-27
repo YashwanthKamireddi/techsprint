@@ -21,7 +21,7 @@ import {
     updateDoc,
     where,
 } from "firebase/firestore";
-import { db } from "@/app/firebase";
+import { db } from "@/lib/firebase";
 import { BadgeOutlined, EmojiEventsOutlined, PeopleOutline } from "@mui/icons-material";
 
 export default function Confirmation() {
@@ -55,7 +55,7 @@ export default function Confirmation() {
 
     useEffect(() => {
         if (user === null) {
-            alert("Please login to register for IWD");
+            alert("Please login to register for TechSprint 2026");
             window.location.href = "/";
             return;
         }
@@ -180,7 +180,7 @@ export default function Confirmation() {
                                     <PeopleOutline fontSize="large" className="mt-8" />
                                     <h2 className="text-2xl font-medium mt-4">Team Updated.</h2>
                                     <p className="text-sm mt-4 mb-8 max-w-[420px]">
-                                        Excited to host your team for IWD 2025.
+                                        Excited to host your team for TechSprint 2026.
                                         <br />
                                         Earn badges and have fun before the event.
                                     </p>

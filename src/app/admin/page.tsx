@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react";
 import Loader from "@/components/LoadingAnimation/page";
-import { auth, db } from "@/app/firebase";
+import { auth, db } from "@/lib/firebase";
 import { useAuthContext } from "@/context/AuthContext";
 import { getDoc, doc, documentId } from "firebase/firestore";
 import milestones from "@/data/milestones.json";

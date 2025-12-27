@@ -1,5 +1,5 @@
 "use client";
-import { auth, db } from "@/app/firebase";
+import { auth, db } from "@/lib/firebase";
 import Loader from "@/components/LoadingAnimation/page";
 import { doc, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
