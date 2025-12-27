@@ -16,7 +16,7 @@ export default function About() {
 
                         <div className="grid grid-cols-2 gap-4">
                             <div className="p-4 bg-white dark:bg-[#141414] rounded-xl">
-                                <h4 className="font-bold text-xl mb-1 text-black dark:text-white">48 Hours</h4>
+                                <h4 className="font-bold text-xl mb-1 text-black dark:text-white">24 Hours</h4>
                                 <p className="text-sm text-black/60 dark:text-white/60">Non-stop coding</p>
                             </div>
                             <div className="p-4 bg-white dark:bg-[#141414] rounded-xl">
@@ -24,8 +24,8 @@ export default function About() {
                                 <p className="text-sm text-black/60 dark:text-white/60">From Google Experts</p>
                             </div>
                             <div className="p-4 bg-white dark:bg-[#141414] rounded-xl">
-                                <h4 className="font-bold text-xl mb-1 text-black dark:text-white">Prizes</h4>
-                                <p className="text-sm text-black/60 dark:text-white/60">Exciting rewards</p>
+                                <h4 className="font-bold text-xl mb-1 text-black dark:text-white">Cash Prizes & Swags</h4>
+                                <p className="text-sm text-black/60 dark:text-white/60">Exciting rewards and prizes upto ₹9K</p>
                             </div>
                             <div className="p-4 bg-white dark:bg-[#141414] rounded-xl">
                                 <h4 className="font-bold text-xl mb-1 text-black dark:text-white">Networking</h4>

@@ -43,7 +43,7 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className="">
+            <nav className="bg-(--background)">
                 <div className="mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-20">
                         <div className="flex items-center">
@@ -60,12 +60,24 @@ export default function Navbar() {
                             </Link>
                         </div>
                         <div className="hidden md:flex items-center space-x-8">
-                            <Link href="#about" className="text-black/60 dark:text-white/70 hover:text-(--google-blue) font-medium transition-colors">
+                            <Link href="/#about" className="text-black/60 dark:text-white/70 hover:text-(--google-blue) font-medium transition-colors">
                                 About
                             </Link>
                             <Link href="/timeline" className="text-black/60 dark:text-white/70 hover:text-(--google-blue) font-medium transition-colors">
                                 Timeline
                             </Link>
+                            <Link href="/schedule" className="text-black/60 dark:text-white/70 hover:text-(--google-blue) font-medium transition-colors">
+                                Schedule
+                            </Link>
+                            <Link href="/team" className="text-black/60 dark:text-white/70 hover:text-(--google-blue) font-medium transition-colors">
+                                Team
+                            </Link>
+                            <Link href="/faq" className="text-black/60 dark:text-white/70 hover:text-(--google-blue) font-medium transition-colors">
+                                FAQ
+                            </Link>
+                            {/* <Link href="/leaderboard" className="text-black/60 dark:text-white/70 hover:text-(--google-blue) font-medium transition-colors">
+                                Leaderboard
+                            </Link> */}
 
                             {user ? (
                                 <div className="flex items-center gap-4">

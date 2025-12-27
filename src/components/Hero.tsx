@@ -63,7 +63,7 @@ export default function Hero() {
                 </h1>
 
                 <p className="mt-4 text-xl md:text-2xl text-black/80 dark:text-white/80 max-w-3xl mx-auto mb-10">
-                    Join us for a 48-hour innovation marathon. Create, collaborate, and compete with the best minds using Google's latest technologies.
+                    Join us for a 24-hour innovation marathon. Create, collaborate, and compete with the best minds using Google's latest technologies.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
