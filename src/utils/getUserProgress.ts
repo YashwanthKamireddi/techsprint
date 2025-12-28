@@ -28,8 +28,14 @@ export default async function GetUserProgress(uid: string): Promise<Progress> {
       return Progress.incompleteRegistration;
     }
 
+    // Check if confirmation form is incomplete (no tshirt size or linkedin)
+    if (!userData.tshirtSize || !userData.linkedin_profile) {
+      return Progress.incompleteRegistration;
+    }
+
     // Check team membership status
-    if (userData.isTeamMember === -1 || userData.isTeamMember === 0) {
+    // isTeamMember === -1 means they haven't completed confirmation yet
+    if (userData.isTeamMember === -1) {
       return Progress.notYetTeamMember;
     }
 
@@ -38,13 +44,14 @@ export default async function GetUserProgress(uid: string): Promise<Progress> {
       return Progress.completeRegistrationTeamLead;
     }
 
-    // User is a complete team member
+    // User is a complete team member (isTeamMember === 1)
     if (userData.isTeamMember === 1) {
       return Progress.completeRegistration;
     }
 
-    // Default to incomplete
-    return Progress.notYetTeamMember;
+    // User completed confirmation but not in a team yet (isTeamMember === 0)
+    // Still allow them to see their profile
+    return Progress.completeRegistration;
   } catch (error) {
     console.error("Error fetching user progress:", error);
     return Progress.noApplication;

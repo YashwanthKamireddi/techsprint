@@ -42,9 +42,9 @@ const MyForm: React.FC = () => {
         setPopUp(false);
       }
       if (response === Progress.paymentPending) {
-        setLoadingState(true);
-        setRegistrationStatus(false);
-        setPopUp(true);
+        // Payment flow disabled - redirect to confirmation
+        window.location.href = "/confirmation";
+        return;
       }
       if (response === Progress.incompleteRegistration) {
         window.location.href = "/confirmation";
@@ -111,8 +111,11 @@ const MyForm: React.FC = () => {
       ["isTeamLead"]: 0,
       ["coc"]: 1,
       ["terms"]: 1,
+      ["payment_status"]: "captured", // Skip payment for now
     });
-    setPopUp(true);
+    // Redirect directly to confirmation page
+    window.location.href = "/confirmation";
+    // setPopUp(true); // Commented out - payment flow disabled
     // setRegistrationStatus(true);
   };
 
@@ -433,10 +436,10 @@ const MyForm: React.FC = () => {
                   </button>
                 </>
               )}
+              {/* PAYMENT POPUP - TEMPORARILY DISABLED 
               {popUp && (
                 <>
                   <h2 className="text-2xl font-medium mt-12 dark:text-white">
-                    {/* Rules & Regulations */}
                     Confirm your payment
                   </h2>
                   <p className="mt-4 max-w-[480px] mx-auto dark:text-gray-300">
@@ -453,62 +456,13 @@ const MyForm: React.FC = () => {
                     <li>Networking with industry experts</li>
                     <li>Certificate of participation</li>
                   </ul>
-                  {/* <p className="text-sm mt-4 mb-8 max-w-[480px] mx-auto">
-                    Before proceeding to registration, please carefully review
-                    and accept the following crucial conditions for
-                    participation in the hackathon
-                  </p> */}
-                  {/* <h3 className="text-2xl font-medium text-start">
-                    Hackathon Team Composition
-                  </h3>
-                  <p className="text-sm mt-4 mb-8 max-w-[480px] text-start">
-                    <b>Team Size</b>: Teams must consist of{" "}
-                    <b className="text-blue-500">3-4 members</b>. <br />
-                    <b>Female Representation</b>: Each team must include a
-                    <b className="text-blue-500">
-                      {" "}
-                      minimum of 2 female members
-                    </b>{" "}
-                    to be eligible for participation.
-                  </p>
-                  <h3 className="text-2xl font-medium text-start">
-                    Payment & Refund Policy
-                  </h3>
-                  <p className="text-sm mt-4 mb-8 max-w-[60ch] text-start dark:text-gray-300">
-                    <b>No Refund Policy</b>: Please be aware that all
-                    registration fees are{" "}
-                    <span className="!text-red-600 dark:!text-red-400 font-bold">
-                      non-refundable
-                    </span>
-                    .<br />
-                    <br />
-                    Ensure you have thoroughly reviewed all event details and
-                    can fully commit to participation before completing your
-                    payment.
-                  </p> */}
-                  {/* <input
-                    type="checkbox"
-                    name="teamCond"
-                    required
-                    checked={agreedToRules}
-                    onChange={(e) => {
-                      console.log(e.target.checked);
-                      setAgreedToRules(e.target.checked);
-                    }}
-                  />
-                  <label className="ml-2 !max-w-[420px]">
-                    I acknowledge that I have read, understood, and agree to
-                    adhere to the above conditions.
-                  </label>
-                  <br />
-                  <br /> */}
                   <button
                     onClick={async () => {
                       const createOrderId = async () => {
                         try {
                           console.log(user?.uid);
                           const response = await fetch(
-                            "https://us-central1-international-women-s-day-25.cloudfunctions.net/createOrder",
+                            "https://us-central1-techsprint-gitam.cloudfunctions.net/createOrder",
                             {
                               method: "POST",
                               headers: {
@@ -539,15 +493,12 @@ const MyForm: React.FC = () => {
                         console.log(createOrderIdValue);
                         const options = {
                           key: "rzp_live_4GKxrZC526axav",
-                          amount: 100,
+                          amount: 25000,
                           currency: "INR",
                           name: "TechSprint 2026 Visakhapatnam",
-                          description: "Your ticket reciept for TechSprint 2026 Visakhapatnam",
+                          description: "Your ticket receipt for TechSprint 2026 Visakhapatnam",
                           order_id: createOrderIdValue,
                           handler: function (response: any) {
-                            // alert(response.razorpay_payment_id);
-                            // alert(response.razorpay_order_id);
-                            // alert(response.razorpay_signature);
                             router.push("/processing-ticket");
                           },
                           prefill: {
@@ -560,7 +511,6 @@ const MyForm: React.FC = () => {
                           retry: {
                             enabled: false,
                           },
-
                           timeout: 300,
                         };
                         if (typeof window !== undefined) {
@@ -574,13 +524,6 @@ const MyForm: React.FC = () => {
                               paymentObject.close();
                             }
                           );
-                          // paymentObject.on(
-                          //   "ondismiss",
-                          //   function (response: any) {
-                          //     router.push("/processing-ticket?status=failed");
-                          //     paymentObject.close();
-                          //   }
-                          // );
                           paymentObject.open();
                         }
                       } catch (error) {
@@ -593,6 +536,7 @@ const MyForm: React.FC = () => {
                   </button>
                 </>
               )}
+              */}
             </div>
           </div>
         )}

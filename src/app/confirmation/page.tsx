@@ -93,65 +93,73 @@ export default function Confirmation() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoadingState(true);
-    if (isTeamLead === false) {
-      const updatableData = {
-        tshirtSize: tshirt_size,
-        linkedin_profile: linkedin_profile,
-        github_profile: github_profile,
-        isTeamLead: 0,
-        isTeamMember: 0,
-      };
-      console.log(updatableData);
-      await updateDoc(doc(db, "registrations", user?.uid ?? ""), updatableData);
-      setIsCompleteRegistration(true);
-    } else {
-      //CHECK IF TEAM NAME IS UNIQUE
-      const isUniqueTeam =
-        (
-          await getCountFromServer(
-            query(collection(db, "teams"), where("teamName", "==", teamName))
-          )
-        ).data().count <= 0;
+    
+    try {
+      if (isTeamLead === false) {
+        const updatableData = {
+          tshirtSize: tshirt_size,
+          linkedin_profile: linkedin_profile,
+          github_profile: github_profile,
+          isTeamLead: 0,
+          isTeamMember: 0,
+        };
+        console.log(updatableData);
+        await updateDoc(doc(db, "registrations", user?.uid ?? ""), updatableData);
+        setIsCompleteRegistration(true);
+      } else {
+        //CHECK IF TEAM NAME IS UNIQUE
+        const isUniqueTeam =
+          (
+            await getCountFromServer(
+              query(collection(db, "teams"), where("teamName", "==", teamName))
+            )
+          ).data().count <= 0;
 
-      if (!isUniqueTeam) {
-        alert("Team name must be unique");
-        return;
+        if (!isUniqueTeam) {
+          alert("Team name must be unique");
+          setLoadingState(false);
+          return;
+        }
+        const teamNumber =
+          (await getCountFromServer(query(collection(db, "teams")))).data()
+            .count + 1;
+        //SET ISTEAMLEAD =1 and update details of user
+        const updatableData = {
+          tshirtSize: tshirt_size,
+          linkedin_profile: linkedin_profile,
+          github_profile: github_profile,
+          isTeamLead: 1,
+          isTeamMember: 1,
+        };
+        console.log(updatableData);
+        await updateDoc(doc(db, "registrations", user?.uid ?? ""), updatableData);
+        //CREATE TEAM TABLE
+        await setDoc(doc(db, "teams", teamName), {
+          teamName: teamName,
+          teamNumber: teamNumber,
+          participants: team.map((e) => e.userId),
+        });
+        //UPDATE IS IN TEAM FOR OTHERS
+        await Promise.all(
+          team
+            .filter((e) => e.userId != user?.uid)
+            .map(async (e) => {
+              const updatableData = {
+                isTeamMember: 1,
+              };
+              console.log(updatableData);
+              await updateDoc(
+                doc(db, "registrations", e.userId ?? ""),
+                updatableData
+              );
+            })
+        );
+        setIsCompleteRegistration(true);
       }
-      const teamNumber =
-        (await getCountFromServer(query(collection(db, "teams")))).data()
-          .count + 1;
-      //SET ISTEAMLEAD =1 and update details of user
-      const updatableData = {
-        tshirtSize: tshirt_size,
-        linkedin_profile: linkedin_profile,
-        github_profile: github_profile,
-        isTeamLead: 1,
-        isTeamMember: 1,
-      };
-      console.log(updatableData);
-      await updateDoc(doc(db, "registrations", user?.uid ?? ""), updatableData);
-      //CREATE TEAM TABLE
-      await setDoc(doc(db, "teams", teamName), {
-        teamName: teamName,
-        teamNumber: teamNumber,
-        participants: team.map((e) => e.userId),
-      });
-      //UPDATE IS IN TEAM FOR OTHERS
-      await Promise.all(
-        team
-          .filter((e) => e.userId != user?.uid)
-          .map(async (e) => {
-            const updatableData = {
-              isTeamMember: 1,
-            };
-            console.log(updatableData);
-            await updateDoc(
-              doc(db, "registrations", e.userId ?? ""),
-              updatableData
-            );
-          })
-      );
-      setIsCompleteRegistration(true);
+    } catch (error) {
+      console.error("Error during registration:", error);
+      alert("An error occurred. Please try again.");
+      setLoadingState(false);
     }
   };
 
@@ -289,19 +297,18 @@ export default function Confirmation() {
                     const firstName = user?.displayName?.split(" ").at(0) ?? "";
                     const lastName =
                       user?.displayName?.replaceAll(firstName + " ", "") ?? "";
+                    const currentUser = totalUsers.filter(
+                      (e) => e.userId == user?.uid
+                    )[0];
                     setTeam([
                       {
                         label: firstName,
                         lastName: lastName,
-                        gender: totalUsers.filter(
-                          (e) => e.userId == user?.uid
-                        )[0].gender,
+                        gender: currentUser?.gender ?? "He/Him",
                         isTeamMember: 0,
                         userId: user?.uid ?? "",
                         image: user?.photoURL ?? "",
-                        profession: totalUsers.filter(
-                          (e) => e.userId == user?.uid
-                        )[0].profession,
+                        profession: currentUser?.profession ?? "Student",
                         email: user?.email ?? "",
                         isPaid: true,
                       } as Attendee,
@@ -504,11 +511,11 @@ export default function Confirmation() {
                     onClick={() => {
                       setLoadingState(false);
                       setIsCompleteRegistration(false);
-                      window.location.href = "/";
+                      window.location.href = "/dashboard";
                     }}
                     className="border-[1.5px] px-8 py-2 rounded-full border-gray-500 dark:border-gray-600 dark:text-white dark:hover:bg-gray-800"
                   >
-                    Done
+                    Go to Dashboard
                   </button>
                 </>
               ) : (

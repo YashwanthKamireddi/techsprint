@@ -104,6 +104,11 @@ export default function Navbar() {
                             <Link href="/faq" className="text-black/60 dark:text-white/70 hover:text-(--google-blue) font-medium transition-colors">
                                 FAQ
                             </Link>
+                            {user && (
+                                <Link href="/dashboard" className="text-black/60 dark:text-white/70 hover:text-(--google-blue) font-medium transition-colors">
+                                    Dashboard
+                                </Link>
+                            )}
                             {/* <Link href="/leaderboard" className="text-black/60 dark:text-white/70 hover:text-(--google-blue) font-medium transition-colors">
                                 Leaderboard
                             </Link> */}
