@@ -218,7 +218,7 @@ const MyForm: React.FC = () => {
             You can also use your profile to earn badges during the conference.
           </p>
           <p className="font-medium text-gray-900 dark:text-white">
-            Note: This is a paid event, an offline <b>ticket costs ₹250</b>.
+            Note: This is a paid event, an offline <b>ticket costs ₹200</b>.
           </p>
         </div>
         <form
@@ -588,7 +588,7 @@ const MyForm: React.FC = () => {
                               },
                               body: JSON.stringify({
                                 userId: user?.uid,
-                                amount: 25000,
+                                amount: 20000,
                               }),
                             }
                           );
@@ -611,7 +611,7 @@ const MyForm: React.FC = () => {
                         console.log(createOrderIdValue);
                         const options = {
                           key: "rzp_live_4GKxrZC526axav",
-                          amount: 25000,
+                          amount: 20000,
                           currency: "INR",
                           name: "TechSprint 2026 Visakhapatnam",
                           description: "Your ticket receipt for TechSprint 2026 Visakhapatnam",
@@ -650,7 +650,7 @@ const MyForm: React.FC = () => {
                     }}
                     className="border-[1.5px] px-8 py-2 rounded-full border-gray-500 dark:border-gray-700 bg-blue-500 dark:bg-blue-600 text-white hover:bg-blue-600 dark:hover:bg-blue-700 transition-colors disabled:bg-gray-100 dark:disabled:bg-gray-800 disabled:text-gray-300 dark:disabled:text-gray-600 disabled:border-0"
                   >
-                    Pay ₹250
+                    Pay ₹200
                   </button>
                 </>
               )}

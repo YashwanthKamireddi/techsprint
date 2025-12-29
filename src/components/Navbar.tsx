@@ -3,15 +3,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { auth, db } from '@/lib/firebase';
+import { auth } from '@/lib/firebase';
 import { GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, User } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
-import ProfileModal from './ProfileModal';
 
 export default function Navbar() {
     const [user, setUser] = useState<User | null>(null);
-    const [showProfileModal, setShowProfileModal] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const router = useRouter();
 
@@ -25,18 +22,8 @@ export default function Navbar() {
     const handleSignIn = async () => {
         const provider = new GoogleAuthProvider();
         try {
-            const result = await signInWithPopup(auth, provider);
-            const user = result.user;
-
-            // Check if profile exists
-            const docRef = doc(db, "users", user.uid);
-            const docSnap = await getDoc(docRef);
-
-            if (!docSnap.exists()) {
-                setShowProfileModal(true);
-            } else {
-                router.push('/dashboard');
-            }
+            await signInWithPopup(auth, provider);
+            router.push('/dashboard');
         } catch (error) {
             console.error("Error signing in", error);
         }
@@ -66,7 +53,7 @@ export default function Navbar() {
                             </svg>
 
                                 <span className="text-lg md:text-xl font-bold text-(--foreground) relative">
-                                    TechS<span>p<div className='absolute -bottom-1 left-[48px] md:left-[58.5px] w-[2px] md:w-[2.5px] h-3 md:h-4 bg-(--foreground)'></div></span>rint
+                                    TechSprint
                                 </span>
                             </Link>
                         </div>
@@ -196,14 +183,6 @@ export default function Navbar() {
                 </div>
             </nav>
 
-            {user && (
-                <ProfileModal
-                    user={user}
-                    isOpen={showProfileModal}
-                    onClose={() => setShowProfileModal(false)}
-                    onComplete={() => setShowProfileModal(false)}
-                />
-            )}
         </>
     );
 }
