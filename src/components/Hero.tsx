@@ -7,11 +7,13 @@ import { useRouter } from 'next/navigation';
 import GetUserProgress from '@/utils/getUserProgress';
 import Progress from '@/utils/progress';
 import { CalendarMonth, MapOutlined } from '@mui/icons-material';
+import ProfileModal from './ProfileModal';
 
 export default function Hero() {
     const [user, setUser] = useState<User | null>(null);
     const [userProgress, setUserProgress] = useState<Progress | null>(null);
     const [loading, setLoading] = useState(true);
+    const [showProfileModal, setShowProfileModal] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
