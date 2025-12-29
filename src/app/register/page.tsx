@@ -48,18 +48,31 @@ const MyForm: React.FC = () => {
         setPopUp(false);
       }
       if (response === Progress.paymentPending) {
-        // Payment flow disabled - redirect to confirmation
-        window.location.href = "/confirmation";
+        // Old user migration: Payment is now skipped. Auto-capture payment and redirect.
+        // We also set isTeamMember to 0 (if it was -1) to ensure they are treated as fully registered.
+        updateDoc(doc(db, "registrations", user.uid), {
+          payment_status: "captured",
+          isTeamMember: 0, // Ensure they are not stuck in "notYetTeamMember"
+        }).then(() => {
+          window.location.href = "/dashboard";
+        });
         return;
       }
       if (response === Progress.incompleteRegistration) {
-        window.location.href = "/confirmation";
+        // If registration is incomplete (missing fields), show the form to let them finish.
+        setLoadingState(false);
+        setRegistrationStatus(false);
+        setPopUp(false);
         return;
       }
       if (response === Progress.notYetTeamMember) {
-        // User has registered but not joined a team yet. 
-        // Redirect to dashboard to manage team status instead of showing success modal here.
-        window.location.href = "/dashboard";
+        // Old user migration: User registered but was in "confirmation pending" state (-1).
+        // Update to 0 (Registered, no team) and redirect.
+        updateDoc(doc(db, "registrations", user.uid), {
+          isTeamMember: 0,
+        }).then(() => {
+          window.location.href = "/dashboard";
+        });
         return;
       }
       if (
