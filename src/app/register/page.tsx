@@ -113,10 +113,12 @@ const MyForm: React.FC = () => {
       ["terms"]: 1,
       ["payment_status"]: "captured", // Skip payment for now
     });
-    // Redirect directly to confirmation page
-    window.location.href = "/confirmation";
-    // setPopUp(true); // Commented out - payment flow disabled
-    // setRegistrationStatus(true);
+    
+    setRegistrationStatus(true);
+    // Redirect to confirmation page after a short delay to show success message
+    setTimeout(() => {
+      window.location.href = "/confirmation";
+    }, 2000);
   };
 
   useEffect(() => {
@@ -138,9 +140,9 @@ const MyForm: React.FC = () => {
           <div className="md:grow md:pt-[30px] md:pl-[40px] pt-[20px] pb-[40px] md:pb-[unset]">
             <h1 className="text-3xl font-medium text-gray-900 dark:text-white">Register for TechSprint 2026</h1>
 
-            <p className="opacity-60 mt-3 text-lg text-gray-700 dark:text-gray-300">24-25th March 2026</p>
+            <p className="mt-3 text-lg text-gray-700 dark:text-gray-300">24-25th March 2026</p>
 
-            <p className="opacity-60 text-gray-700 dark:text-gray-300">Gandhi Institute of Technology and Management, Visakhapatnam</p>
+            <p className="text-gray-700 dark:text-gray-300">Gandhi Institute of Technology and Management, Visakhapatnam</p>
           </div>
           <img
             src="gdsc_sc.webp"
@@ -172,7 +174,7 @@ const MyForm: React.FC = () => {
                 placeholder="First Name"
                 value={formState.firstName}
                 onChange={handleChange}
-                className="register-input grow"
+                className="register-input grow text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
               />
 
               <input
@@ -183,7 +185,7 @@ const MyForm: React.FC = () => {
                 placeholder="Last Name"
                 value={formState.lastName}
                 onChange={handleChange}
-                className="register-input grow"
+                className="register-input grow text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
               />
             </div>
             <div className="flex  flex-col md:flex-row md:space-x-8  gap-y-4 md:gap-y-[unset]">
@@ -195,11 +197,11 @@ const MyForm: React.FC = () => {
                 placeholder="Email Address"
                 value={formState.email}
                 onChange={handleChange}
-                className="register-input grow md:w-1/2"
+                className="register-input grow md:w-1/2 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
               />
               <select
                 name="gender"
-                className="register-input grow md:w-1/2"
+                className="register-input grow md:w-1/2 text-gray-900 dark:text-white"
                 onChange={handleSelectChange}
                 required
               >
@@ -218,7 +220,7 @@ const MyForm: React.FC = () => {
                   placeholder="Website (optional)"
                   value={formState.socialProfile}
                   onChange={handleChange}
-                  className="register-input w-full"
+                  className="register-input w-full text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
                 />
                 <p className="mt-2 md:mt-4 max-w-[440px] text-[12px] text-gray-700 dark:text-gray-400">
                   Share us a link where we can get to know more about you. It
@@ -228,7 +230,7 @@ const MyForm: React.FC = () => {
               </div>
               <div className="md:w-1/2">
                 <select
-                  className="w-full register-input h-max"
+                  className="w-full register-input h-max text-gray-900 dark:text-white"
                   required
                   onChange={handleSelectChange}
                   name="university"
@@ -269,7 +271,7 @@ const MyForm: React.FC = () => {
                     placeholder="Institution Name"
                     value={formState.otherUniversity}
                     onChange={handleChange}
-                    className="register-input grow mt-4 w-full"
+                    className="register-input grow mt-4 w-full text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
                   />
                 )}
               </div>
@@ -391,7 +393,7 @@ const MyForm: React.FC = () => {
               )}
               {registered && !isCompleteRegistration && (
                 <>
-                  <h2 className="text-2xl font-medium text-gray-900 dark:text-white">Application Recieved</h2>
+                  <h2 className="text-2xl font-medium text-gray-900 dark:text-white">Registration Successful</h2>
                   <p className="text-sm mt-4 mb-8 max-w-[420px] text-gray-700 dark:text-gray-300">
                     You'll be notified of the status of your hackathon team
                     soon. If you're not into a team before the hackathon, we'll
