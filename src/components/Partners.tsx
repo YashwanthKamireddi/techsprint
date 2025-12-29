@@ -72,7 +72,7 @@ export default function Partners() {
           <h4 className="opacity-50 mt-[26.6px] text-xl">Partner</h4>
           <div className="w-[220px] h-[140px] flex items-center justify-center">
             <img
-              src="/partners/gcgc_logo.png"
+              src="https://res.cloudinary.com/dlhw4q5rh/image/upload/f_auto,q_auto,w_200/v1767012299/gcgc_logo_efnugd.png"
               className="max-w-full max-h-full object-contain"
               alt="GCGC"
             />
@@ -84,7 +84,7 @@ export default function Partners() {
           <h4 className="opacity-50 mt-[26.6px] text-xl">Sponsor</h4>
           <div className="w-[220px] h-[140px] flex items-center justify-center">
             <img
-              src="/partners/VDC_Logo.png"
+              src="https://res.cloudinary.com/dlhw4q5rh/image/upload/f_auto,q_auto,w_200/v1767012298/VDC_Logo_petfvc.png"
               className="max-w-full max-h-full object-contain"
               alt="VDC - Vizag Developer Community"
             />
@@ -96,7 +96,7 @@ export default function Partners() {
           <h4 className="opacity-50 mt-[26.6px] text-xl">Sponsor</h4>
           <div className="w-[220px] h-[140px] flex items-center justify-center">
             <img
-              src="/partners/CSE_Logo.png"
+              src="https://res.cloudinary.com/dlhw4q5rh/image/upload/f_auto,q_auto,w_200/v1767012298/CSE_Logo_pu283y.png"
               className="max-w-full max-h-full object-contain"
               alt="GITAM CSE"
             />
