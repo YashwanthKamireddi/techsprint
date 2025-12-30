@@ -254,7 +254,7 @@ const MyForm: React.FC = () => {
           <div className="md:grow md:pt-[30px] md:pl-[40px] pt-[20px] pb-[40px] md:pb-[unset]">
             <h1 className="text-3xl font-medium text-gray-900 dark:text-white">Register for TechSprint 2026</h1>
 
-            <p className="opacity-60 mt-3 text-lg text-gray-700 dark:text-gray-300">24-25th March 2026</p>
+            <p className="opacity-60 mt-3 text-lg text-gray-700 dark:text-gray-300">3-4th January 2026</p>
 
             <p className="opacity-60 text-gray-700 dark:text-gray-300">Gandhi Institute of Technology and Management, Visakhapatnam</p>
           </div>
@@ -270,9 +270,7 @@ const MyForm: React.FC = () => {
             Visakhapatnam so that you don't miss out on the fun and learning.
             You can also use your profile to earn badges during the conference.
           </p>
-          <p className="font-medium text-gray-900 dark:text-white">
-            Note: This is a paid event, an offline <b>ticket costs ₹250</b>.
-          </p>
+
         </div>
         <form
           onSubmit={handleSubmit}
@@ -326,22 +324,7 @@ const MyForm: React.FC = () => {
               </select>
             </div>
             <div className="flex  flex-col md:flex-row md:space-x-8 gap-y-4 md:gap-y-[unset">
-              <div className="grow md:w-1/2">
-                <input
-                  type="url"
-                  id="socialProfile"
-                  name="socialProfile"
-                  placeholder="Website (optional)"
-                  value={formState.socialProfile}
-                  onChange={handleChange}
-                  className="register-input w-full"
-                />
-                <p className="mt-2 md:mt-4 max-w-[440px] text-[12px] text-gray-700 dark:text-gray-400">
-                  Share us a link where we can get to know more about you. It
-                  can be your website, social media, or literally anything you
-                  want us to know
-                </p>
-              </div>
+              
               <div className="md:w-1/2 ">
                 <select
                   className="w-full register-input h-max"
