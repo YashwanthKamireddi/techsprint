@@ -16,6 +16,7 @@ import {
   getCountFromServer,
   getDocs,
   query,
+  setDoc,
   updateDoc,
   arrayUnion,
   where,
@@ -23,9 +24,11 @@ import {
 import { ArrowForwardIos, EmojiEventsOutlined } from "@mui/icons-material";
 import GetUserProgress from "@/utils/getUserProgress";
 import Progress from "@/utils/progress";
+import { useSearchParams } from "next/navigation";
 
 const MyForm: React.FC = () => {
   const user = useAuthContext();
+  const searchParams = useSearchParams();
   const [loading, setLoadingState] = useState(true);
   const [registered, setRegistrationStatus] = useState(false);
   const [popUp, setPopUp] = useState(false);
@@ -73,7 +76,17 @@ const MyForm: React.FC = () => {
   const [formState, setFormState] = useState(initialFormData);
   const [isTeamLead, setIsTeamLead] = useState<boolean | undefined>(undefined);
   const [referralCode, setReferralCode] = useState("");
+  const [teamName, setTeamName] = useState("");
   const router = useRouter();
+
+  // Auto-fill referral code from URL parameter
+  useEffect(() => {
+    const codeFromUrl = searchParams.get('code');
+    if (codeFromUrl) {
+      setReferralCode(codeFromUrl.toUpperCase());
+      setIsTeamLead(false); // Automatically select "No, I'll join a team"
+    }
+  }, [searchParams]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -110,6 +123,49 @@ const MyForm: React.FC = () => {
     }
 
     let teamInfo = null;
+    let generatedCode = "";
+
+    // If team lead, create the team
+    if (isTeamLead && teamName) {
+      try {
+        const teamsRef = collection(db, "teams");
+        const teamQuery = query(teamsRef, where("teamName", "==", teamName));
+        const count = (await getCountFromServer(teamQuery)).data().count;
+
+        if (count > 0) {
+          alert("Team name already exists. Please choose a different name.");
+          setLoadingState(false);
+          return;
+        }
+
+        // Generate referral code
+        generatedCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+
+        // Get team number
+        const teamNumber = (await getCountFromServer(query(teamsRef))).data().count + 1;
+
+        // Create team document
+        await setDoc(doc(db, "teams", teamName), {
+          teamName: teamName,
+          teamNumber: teamNumber,
+          referralCode: generatedCode,
+          leaderId: user.uid,
+          participants: [user.uid],
+          createdAt: new Date().toISOString(),
+        });
+
+        teamInfo = {
+          teamName: teamName,
+          isTeamMember: 1,
+          referralCode: generatedCode,
+        };
+      } catch (error) {
+        console.error("Error creating team:", error);
+        alert("Failed to create team. Please try again.");
+        setLoadingState(false);
+        return;
+      }
+    }
 
     // If member provided a referral code, validate and join team
     if (!isTeamLead && referralCode) {
@@ -170,16 +226,13 @@ const MyForm: React.FC = () => {
       ["teamName"]: teamInfo?.teamName || "",
     });
     
-    // Redirect based on team lead status
-    if (isTeamLead) {
-      window.location.href = "/create-team";
-    } else if (teamInfo) {
-      // Successfully joined team, go to dashboard
-      window.location.href = "/dashboard";
-    } else {
-      // No team yet, but registration complete - go to dashboard
-      window.location.href = "/dashboard";
+    // If team lead, show referral code before redirecting
+    if (isTeamLead && generatedCode) {
+      alert(`Team created successfully! Your referral code is: ${generatedCode}\n\nShare this code with your team members.`);
     }
+    
+    // Redirect to dashboard
+    window.location.href = "/dashboard";
   };
 
   useEffect(() => {
@@ -453,13 +506,37 @@ const MyForm: React.FC = () => {
                     type="radio"
                     name="isLead"
                     checked={isTeamLead === false}
-                    onChange={() => setIsTeamLead(false)}
+                    onChange={() => {
+                      setIsTeamLead(false);
+                      setTeamName("");
+                    }}
                     required
                     className="w-4 h-4"
                   />
                   <span className="text-gray-900 dark:text-gray-300">No, I'll join a team</span>
                 </label>
               </div>
+              
+              {isTeamLead === true && (
+                <div className="mt-3">
+                  <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+                    Team Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={teamName}
+                    onChange={(e) => setTeamName(e.target.value)}
+                    placeholder="Enter your team name"
+                    required={isTeamLead === true}
+                    minLength={3}
+                    maxLength={50}
+                    className="register-input w-full"
+                  />
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    Choose a unique name for your team (3-50 characters)
+                  </p>
+                </div>
+              )}
               
               {isTeamLead === false && (
                 <div className="mt-3">
